@@ -7,8 +7,8 @@
   "examGoal": "Java & DSA Placement Exam 2026",
   "level": "Intermediate",
   "streakDays": 6,
-  "lastActiveDate": "2026-11-21T11:57:45.804Z",
-  "totalXp": 1920,
+  "lastActiveDate": "2026-11-21T12:11:16.118Z",
+  "totalXp": 2290,
   "levelName": "Algorithm Apprentice",
   "diagnosticCompleted": true,
   "weeklyGoalQuestions": 35,
@@ -174,7 +174,7 @@
         "trace": "sum(2) -> sum(1) -> sum(0) stops! Returns 0."
       },
       "remediationQuizId": "rec_base_fix",
-      "resolvedAt": "2026-11-21T12:09:28.589Z"
+      "resolvedAt": "2026-11-21T12:14:05.768Z"
     },
     {
       "id": "misc_arr_01",
@@ -192,7 +192,7 @@
         "trace": "Length = 5. Indices: [0, 1, 2, 3, 4]. index 5 does not exist."
       },
       "remediationQuizId": "arr_01",
-      "resolvedAt": "2026-11-21T12:09:37.035Z"
+      "resolvedAt": "2026-11-21T12:14:05.768Z"
     }
   ],
   "spacedRepetitionQueue": [
