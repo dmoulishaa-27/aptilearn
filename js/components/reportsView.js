@@ -33,7 +33,7 @@ export function renderReportsView() {
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-6 border-b border-slate-800 gap-4">
           <div>
             <div class="text-xl font-bold text-white flex items-center gap-2">
-              <span class="text-cyan-400 font-mono">LearnIQ</span>
+              <span class="text-cyan-400 font-mono">AptiLearn AI</span>
               <span>Learner Model Evaluation</span>
             </div>
             <p class="text-xs text-slate-400 mt-1">Learner: <strong class="text-white">${user?.name}</strong> (${user?.email})</p>

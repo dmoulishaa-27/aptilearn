@@ -21,7 +21,7 @@ export function renderMisconceptionView() {
           </div>
           <h1 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Misconception Analysis & Remediation</h1>
           <p class="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl">
-            LearnIQ identifies <em>why</em> you chose incorrect options, pinpoints underlying cognitive bugs, and generates targeted counterexamples to cement proper mental models.
+            AptiLearn AI identifies <em>why</em> you chose incorrect options, pinpoints underlying cognitive bugs, and generates targeted counterexamples to cement proper mental models.
           </p>
         </div>
 

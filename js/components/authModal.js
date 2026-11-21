@@ -112,7 +112,7 @@ function renderLoginForm(ac) {
   return `
     <div class="space-y-4">
       <div>
-        <h2 class="text-xl font-bold text-white">Welcome Back to LearnIQ</h2>
+        <h2 class="text-xl font-bold text-white">Welcome Back to AptiLearn AI</h2>
         <p class="text-xs text-slate-400 mt-1">Sign in to resume your adaptive learner model.</p>
       </div>
 
@@ -149,7 +149,7 @@ function renderLoginForm(ac) {
       <button 
         onclick="window.App.submitAuthLogin()"
         class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 text-white font-bold text-xs shadow-lg shadow-cyan-500/25 hover:scale-[1.02] active:scale-[0.98] transition-all">
-        Sign In to LearnIQ →
+        Sign In to AptiLearn AI →
       </button>
 
       <div class="pt-3 border-t border-slate-800 text-center">
@@ -262,7 +262,7 @@ function renderSettingsForm(ac) {
     <div class="space-y-4">
       <div>
         <h2 class="text-xl font-bold text-white">AI Engine & API Vault</h2>
-        <p class="text-xs text-slate-400 mt-1">Optional: Provide a Gemini API key for live dynamic LLM question & tutor generation. If omitted, LearnIQ uses its built-in pedagogical engine.</p>
+        <p class="text-xs text-slate-400 mt-1">Optional: Provide a Gemini API key for live dynamic LLM question & tutor generation. If omitted, AptiLearn AI uses its built-in pedagogical engine.</p>
       </div>
 
       <div>

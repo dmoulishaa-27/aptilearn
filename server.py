@@ -74,10 +74,17 @@ class LearnIQRequestHandler(SimpleHTTPRequestHandler):
         parsed = urllib.parse.urlparse(self.path)
         path = parsed.path
 
-        if path == "/api/status":
+        if path == "/favicon.ico":
+            self.send_response(200)
+            self.send_header("Content-Type", "image/x-icon")
+            self.send_header("Content-Length", "0")
+            self.end_headers()
+            return
+
+        elif path == "/api/status":
             self._send_json({
                 "status": "online",
-                "app": "LearnIQ Adaptive AI Exam-Prep",
+                "app": "AptiLearn AI Adaptive Platform",
                 "version": "1.0.0",
                 "time": time.time(),
                 "storage": "Local & Server Sync Active"
@@ -198,7 +205,7 @@ class LearnIQRequestHandler(SimpleHTTPRequestHandler):
             )
         else:
             return (
-                f"Hello! I am Socrates, your LearnIQ Adaptive AI Tutor. I see you're currently sharpening your Java & DSA skills, "
+                f"Hello! I am Socrates, your AptiLearn AI Adaptive Tutor. I see you're currently sharpening your Java & DSA skills, "
                 f"with current focus on **{weak_str}**.\n\n"
                 "I believe in understanding *why* things work, not just memorizing syntax. "
                 "Feel free to ask me to explain any error, show an interactive code trace, break down a tricky algorithm, or quiz you!"
