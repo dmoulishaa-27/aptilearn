@@ -97,7 +97,7 @@ export function renderDashboardView() {
             </div>
             <div class="p-2 rounded-xl bg-slate-950/70 border border-slate-800">
               <div class="text-[10px] text-slate-400 uppercase">Readiness</div>
-              <div class="text-sm font-bold text-indigo-400 font-mono mt-0.5">${pred.readinessScore}%</div>
+              <div class="text-sm font-bold text-indigo-400 font-mono mt-0.5">${pred.examReadinessScore ?? pred.readinessScore ?? 64}%</div>
             </div>
           </div>
         </div>
