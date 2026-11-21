@@ -157,6 +157,19 @@ export function renderNavbar() {
             </div>
           ` : ''}
 
+          <!-- Explicit Sign In / Login Button -->
+          <button 
+            onclick="window.App.openSignIn()" 
+            class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-bold text-xs shadow-md shadow-cyan-500/20 active:scale-95 transition-all cursor-pointer"
+            title="Sign In or Register with AptiLearn AI">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+              <polyline points="10 17 15 12 10 7"></polyline>
+              <line x1="15" y1="12" x2="3" y2="12"></line>
+            </svg>
+            <span class="font-extrabold tracking-tight">Sign In</span>
+          </button>
+
           <!-- Persona Selector Dropdown -->
           <div class="relative">
             <button 
@@ -214,12 +227,27 @@ export function renderNavbar() {
                 ${user?.id === 'new_student' ? '<span class="text-cyan-400 font-bold">✓</span>' : ''}
               </button>
 
-              <div class="mt-2 pt-2 border-t border-slate-800 light:border-slate-200 flex items-center justify-between px-2">
-                <button onclick="window.App.openSettingsModal()" class="text-[11px] text-cyan-400 hover:underline">
-                  API Key Vault
+              <!-- Account Management Actions -->
+              <div class="mt-2 pt-2 border-t border-slate-800 light:border-slate-200 space-y-1">
+                <button onclick="window.App.openSignIn()" class="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-semibold text-cyan-400 hover:bg-cyan-950/40 flex items-center gap-2 transition-colors">
+                  <span>🔑</span>
+                  <span>Sign In / Switch Account</span>
                 </button>
-                <button onclick="window.App.openOnboarding()" class="text-[11px] text-slate-400 hover:text-white">
-                  Onboarding Survey
+                <button onclick="window.App.openSignUp()" class="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-semibold text-emerald-400 hover:bg-emerald-950/40 flex items-center gap-2 transition-colors">
+                  <span>✨</span>
+                  <span>Create New Account</span>
+                </button>
+                <button onclick="window.App.openSettingsModal()" class="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:bg-slate-800 flex items-center gap-2 transition-colors">
+                  <span>⚙️</span>
+                  <span>API Key Vault</span>
+                </button>
+                <button onclick="window.App.openOnboarding()" class="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800 flex items-center gap-2 transition-colors">
+                  <span>📋</span>
+                  <span>Onboarding Survey</span>
+                </button>
+                <button onclick="window.App.signOut()" class="w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-semibold text-rose-400 hover:bg-rose-950/40 flex items-center gap-2 transition-colors border-t border-slate-800/60 mt-1 pt-1">
+                  <span>🚪</span>
+                  <span>Sign Out</span>
                 </button>
               </div>
             </div>
@@ -248,6 +276,20 @@ export function renderNavbar() {
             ${item.count ? `<span class="px-1.5 py-0.2 rounded-full bg-rose-500/20 text-rose-300 text-[10px]">${item.count}</span>` : ''}
           </button>
         `).join('')}
+        <div class="col-span-2 sm:col-span-3 grid grid-cols-2 gap-2 mt-1">
+          <button 
+            onclick="window.App.openSignIn(); window.App.toggleMobileMenu();" 
+            class="py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 text-white text-xs font-bold text-center shadow-md flex items-center justify-center gap-1.5">
+            <span>🔑</span>
+            <span>Sign In</span>
+          </button>
+          <button 
+            onclick="window.App.openSignUp(); window.App.toggleMobileMenu();" 
+            class="py-2 rounded-xl bg-slate-800 text-cyan-300 text-xs font-bold text-center border border-slate-700 flex items-center justify-center gap-1.5">
+            <span>✨</span>
+            <span>Create Account</span>
+          </button>
+        </div>
         <button 
           onclick="window.App.openGuidedTour(); window.App.toggleMobileMenu();" 
           class="col-span-2 sm:col-span-3 mt-1 py-1.5 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-bold text-center">

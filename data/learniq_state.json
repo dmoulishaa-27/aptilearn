@@ -1,61 +1,263 @@
 {
-  "id": "priya_sharma",
-  "name": "Priya Sharma",
-  "email": "priya.s@techprep.io",
+  "id": "alex_rivera",
+  "name": "Alex Rivera",
+  "email": "alex.rivera@student.edu",
   "role": "student",
-  "avatar": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200",
-  "examGoal": "Senior Software Engineer FAANG Coding Bar",
-  "level": "Advanced",
-  "streakDays": 15,
-  "lastActiveDate": "2026-11-21T10:27:06.395Z",
-  "totalXp": 5100,
-  "levelName": "Code Grandmaster",
+  "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200",
+  "examGoal": "Java & DSA Placement Exam 2026",
+  "level": "Intermediate",
+  "streakDays": 6,
+  "lastActiveDate": "2026-11-21T11:51:26.889Z",
+  "totalXp": 1680,
+  "levelName": "Algorithm Apprentice",
   "diagnosticCompleted": true,
-  "weeklyGoalQuestions": 40,
-  "weeklyQuestionsDone": 36,
-  "studyTimeTodayMins": 65,
-  "targetScore": "Top 0.5% Percentile",
-  "educationLevel": "Post-Graduate / Industry Professional",
-  "institution": "Tech University Alumni",
+  "weeklyGoalQuestions": 35,
+  "weeklyQuestionsDone": 24,
+  "studyTimeTodayMins": 42,
+  "targetScore": "95% Target Percentile",
+  "educationLevel": "Undergraduate (B.Tech CS 3rd Year)",
+  "institution": "Institute of Technology",
   "preferredLanguage": "en",
   "mastery": {
-    "variables": 95,
-    "data_types": 94,
-    "conditionals": 96,
-    "loops": 92,
-    "functions": 94,
-    "arrays": 90,
-    "strings": 88,
-    "recursion": 85,
-    "searching": 89,
-    "sorting": 84,
-    "linked_lists": 82,
-    "stacks": 88,
-    "queues": 86,
-    "trees": 80,
-    "graphs": 74
+    "variables": 90,
+    "data_types": 85,
+    "conditionals": 84,
+    "loops": 78,
+    "functions": 80,
+    "arrays": 62,
+    "strings": 75,
+    "recursion": 34,
+    "searching": 66,
+    "sorting": 48,
+    "linked_lists": 44,
+    "stacks": 64,
+    "queues": 58,
+    "trees": 28,
+    "graphs": 15
   },
-  "conceptStats": {},
-  "activeMisconceptions": [],
-  "spacedRepetitionQueue": [],
+  "conceptStats": {
+    "recursion": {
+      "attempts": 10,
+      "correct": 3,
+      "totalTimeSec": 520,
+      "confidenceAvg": 1.6,
+      "consecutiveMistakes": 2,
+      "lastErrorReason": "Forgot base case"
+    },
+    "arrays": {
+      "attempts": 14,
+      "correct": 9,
+      "totalTimeSec": 410,
+      "confidenceAvg": 2.2,
+      "consecutiveMistakes": 0,
+      "lastErrorReason": "Off-by-one index length"
+    },
+    "variables": {
+      "attempts": 12,
+      "correct": 11,
+      "totalTimeSec": 180,
+      "confidenceAvg": 2.9,
+      "consecutiveMistakes": 0,
+      "lastErrorReason": null
+    },
+    "data_types": {
+      "attempts": 8,
+      "correct": 7,
+      "totalTimeSec": 160,
+      "confidenceAvg": 2.7,
+      "consecutiveMistakes": 0,
+      "lastErrorReason": null
+    },
+    "conditionals": {
+      "attempts": 10,
+      "correct": 9,
+      "totalTimeSec": 190,
+      "confidenceAvg": 2.8,
+      "consecutiveMistakes": 0,
+      "lastErrorReason": null
+    },
+    "loops": {
+      "attempts": 12,
+      "correct": 9,
+      "totalTimeSec": 320,
+      "confidenceAvg": 2.4,
+      "consecutiveMistakes": 0,
+      "lastErrorReason": "Infinite loop condition"
+    },
+    "functions": {
+      "attempts": 9,
+      "correct": 7,
+      "totalTimeSec": 240,
+      "confidenceAvg": 2.6,
+      "consecutiveMistakes": 0,
+      "lastErrorReason": null
+    },
+    "strings": {
+      "attempts": 8,
+      "correct": 6,
+      "totalTimeSec": 210,
+      "confidenceAvg": 2.3,
+      "consecutiveMistakes": 0,
+      "lastErrorReason": null
+    },
+    "searching": {
+      "attempts": 7,
+      "correct": 5,
+      "totalTimeSec": 230,
+      "confidenceAvg": 2.2,
+      "consecutiveMistakes": 0,
+      "lastErrorReason": null
+    },
+    "sorting": {
+      "attempts": 6,
+      "correct": 3,
+      "totalTimeSec": 360,
+      "confidenceAvg": 1.8,
+      "consecutiveMistakes": 1,
+      "lastErrorReason": "Partition pivot placement"
+    },
+    "linked_lists": {
+      "attempts": 8,
+      "correct": 4,
+      "totalTimeSec": 420,
+      "confidenceAvg": 1.7,
+      "consecutiveMistakes": 1,
+      "lastErrorReason": "Null pointer dereference"
+    },
+    "stacks": {
+      "attempts": 7,
+      "correct": 5,
+      "totalTimeSec": 260,
+      "confidenceAvg": 2.2,
+      "consecutiveMistakes": 0,
+      "lastErrorReason": null
+    },
+    "queues": {
+      "attempts": 6,
+      "correct": 4,
+      "totalTimeSec": 250,
+      "confidenceAvg": 2.1,
+      "consecutiveMistakes": 0,
+      "lastErrorReason": null
+    },
+    "trees": {
+      "attempts": 5,
+      "correct": 1,
+      "totalTimeSec": 340,
+      "confidenceAvg": 1.4,
+      "consecutiveMistakes": 2,
+      "lastErrorReason": "Base case check for null leaf"
+    },
+    "graphs": {
+      "attempts": 2,
+      "correct": 0,
+      "totalTimeSec": 180,
+      "confidenceAvg": 1.2,
+      "consecutiveMistakes": 2,
+      "lastErrorReason": "Visited set omitted in BFS"
+    }
+  },
+  "activeMisconceptions": [
+    {
+      "id": "misc_rec_01",
+      "conceptId": "recursion",
+      "conceptName": "Recursion & Call Stack",
+      "title": "Missing Base Case in Recursion",
+      "severity": "Critical",
+      "detectedAt": "2026-11-20T10:14:00Z",
+      "resolved": false,
+      "studentReasoning": "I thought the recursion would automatically terminate when n became negative because there's no math left to compute.",
+      "explanation": "Recursion has no 'automatic' awareness of mathematical intent. Unless you explicitly code an exit condition (e.g., `if (n <= 1) return 1;`), the Java Virtual Machine keeps pushing new activation frames onto the call stack until memory is exhausted (StackOverflowError).",
+      "counterExample": {
+        "incorrectCode": "int sum(int n) {\n  return n + sum(n - 1); // No check! Crashes at n < 0\n}",
+        "correctCode": "int sum(int n) {\n  if (n <= 0) return 0; // Guard condition: BASE CASE\n  return n + sum(n - 1);\n}",
+        "trace": "sum(2) -> sum(1) -> sum(0) stops! Returns 0."
+      },
+      "remediationQuizId": "rec_base_fix"
+    },
+    {
+      "id": "misc_arr_01",
+      "conceptId": "arrays",
+      "conceptName": "Arrays & Memory",
+      "title": "Array Index Out of Bounds (Length vs Last Index)",
+      "severity": "Moderate",
+      "detectedAt": "2026-11-19T16:45:00Z",
+      "resolved": false,
+      "studentReasoning": "If an array has size 5, array[5] should be the 5th element.",
+      "explanation": "Java arrays are 0-indexed. An array of size N stores items from index `0` up to index `N - 1`. Attempting to read `array[array.length]` always throws an `ArrayIndexOutOfBoundsException`.",
+      "counterExample": {
+        "incorrectCode": "int[] arr = new int[5];\nSystem.out.println(arr[5]); // Crash! Valid indices are 0,1,2,3,4",
+        "correctCode": "int[] arr = new int[5];\nSystem.out.println(arr[arr.length - 1]); // Last element!",
+        "trace": "Length = 5. Indices: [0, 1, 2, 3, 4]. index 5 does not exist."
+      },
+      "remediationQuizId": "arr_01"
+    }
+  ],
+  "spacedRepetitionQueue": [
+    {
+      "id": "rev_01",
+      "conceptId": "recursion",
+      "title": "Recursion: Base Case Invariant",
+      "dueStatus": "Due Today",
+      "dueDate": "2026-11-21",
+      "intervalDays": 1,
+      "easeFactor": 1.9,
+      "repetition": 1,
+      "prompt": "Why must a recursive function always have a base case?",
+      "answer": "To provide a terminating condition that halts further recursive calls, unwinds the call stack, and prevents StackOverflowError."
+    },
+    {
+      "id": "rev_02",
+      "conceptId": "arrays",
+      "title": "Array 0-Index Boundary",
+      "dueStatus": "Due Today",
+      "dueDate": "2026-11-21",
+      "intervalDays": 2,
+      "easeFactor": 2.2,
+      "repetition": 2,
+      "prompt": "What is the highest valid index in an array declared as `int[] nums = new int[10];`?",
+      "answer": "Index 9 (i.e. nums.length - 1)."
+    },
+    {
+      "id": "rev_03",
+      "conceptId": "linked_lists",
+      "title": "Null Pointer Prevention in Singly Linked List",
+      "dueStatus": "Upcoming (Tomorrow)",
+      "dueDate": "2026-11-22",
+      "intervalDays": 3,
+      "easeFactor": 2.4,
+      "repetition": 2,
+      "prompt": "What condition must be verified before executing `current = current.next`?",
+      "answer": "`current != null`"
+    }
+  ],
   "dailyQuests": [
     {
-      "id": "qp1",
-      "title": "Graph Cycle Detection",
-      "desc": "Implement topological sort in Coding Lab",
+      "id": "q1",
+      "title": "Targeted Recursion Drill",
+      "desc": "Solve 2 questions on base cases",
       "progress": 1,
-      "total": 1,
-      "xp": 100,
+      "total": 2,
+      "xp": 60,
+      "completed": false
+    },
+    {
+      "id": "q2",
+      "title": "Spaced Reviewer",
+      "desc": "Complete today's SM-2 flashcard queue",
+      "progress": 2,
+      "total": 2,
+      "xp": 50,
       "completed": true
     },
     {
-      "id": "qp2",
-      "title": "Full Mock Exam",
-      "desc": "Complete 1 full-length simulated exam",
-      "progress": 1,
+      "id": "q3",
+      "title": "Cognitive Accuracy Sprint",
+      "desc": "Score 80%+ on an adaptive quiz",
+      "progress": 0,
       "total": 1,
-      "xp": 150,
-      "completed": true
+      "xp": 80,
+      "completed": false
     }
   ]
 }

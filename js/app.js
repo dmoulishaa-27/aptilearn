@@ -182,6 +182,32 @@ class AptiLearnApp {
   }
 
   // Auth & Settings
+  openSignIn() {
+    this.personaMenuOpen = false;
+    authController.open('login');
+  }
+
+  openSignUp() {
+    this.personaMenuOpen = false;
+    authController.open('register');
+  }
+
+  openForgotPassword() {
+    this.personaMenuOpen = false;
+    authController.open('forgot');
+  }
+
+  signOut() {
+    this.personaMenuOpen = false;
+    store.logout();
+    sound.playClick();
+    store.addNotification({
+      title: "Signed Out",
+      desc: "You have signed out of your account.",
+      type: "auth"
+    });
+  }
+
   openSettingsModal() {
     this.togglePersonaMenu();
     authController.open('settings');
@@ -196,9 +222,14 @@ class AptiLearnApp {
   }
 
   setAuthEmail(val) { authController.email = val; }
+  setAuthPassword(val) { authController.password = val; }
   setAuthName(val) { authController.name = val; }
   setAuthGoal(val) { authController.examGoal = val; }
   setAuthLevel(val) { authController.level = val; }
+  setAuthRole(val) { authController.role = val; authController.message = null; store.notify(); }
+  toggleShowPassword() { authController.toggleShowPassword(); }
+  loginWithGoogle() { authController.loginWithGoogle(); }
+  quickPersonaLogin(key) { authController.quickPersonaLogin(key); }
 
   submitAuthLogin() { authController.submitLogin(); }
   submitAuthRegister() { authController.submitRegister(); }

@@ -35,23 +35,35 @@ export function renderLandingPage() {
         <!-- CTA Buttons -->
         <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
           <button 
+            onclick="window.App.openSignIn()" 
+            class="px-7 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 via-indigo-600 to-purple-600 text-white font-bold text-sm shadow-xl shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-2 cursor-pointer">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+              <polyline points="10 17 15 12 10 7"></polyline>
+              <line x1="15" y1="12" x2="3" y2="12"></line>
+            </svg>
+            <span>Sign In / Login</span>
+          </button>
+
+          <button 
             onclick="window.App.startDiagnostic()" 
-            class="px-7 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 text-white font-bold text-sm shadow-xl shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-2">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            class="px-6 py-3.5 rounded-xl bg-slate-900/90 light:bg-slate-100 border border-cyan-500/50 text-cyan-300 light:text-cyan-800 font-bold text-sm hover:bg-slate-800 light:hover:bg-slate-200 shadow-lg shadow-cyan-500/10 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-2">
+            <svg class="w-4 h-4 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
             <span>Take AI Diagnostic Test</span>
           </button>
 
           <button 
             onclick="window.App.openGuidedTour()" 
-            class="px-7 py-3.5 rounded-xl bg-slate-900/90 light:bg-slate-100 border border-amber-500/50 text-amber-300 light:text-amber-700 font-bold text-sm hover:bg-slate-800 light:hover:bg-slate-200 shadow-lg shadow-amber-500/10 transition-all flex items-center gap-2">
+            class="px-6 py-3.5 rounded-xl bg-slate-900/90 light:bg-slate-100 border border-amber-500/50 text-amber-300 light:text-amber-700 font-bold text-sm hover:bg-slate-800 light:hover:bg-slate-200 shadow-lg shadow-amber-500/10 transition-all flex items-center gap-2">
             <svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
-            <span>12-Step Hackathon Walkthrough</span>
+            <span>12-Step Walkthrough</span>
           </button>
 
           <button 
-            onclick="window.App.switchPersona('alex')" 
-            class="px-6 py-3.5 rounded-xl bg-slate-900 light:bg-slate-100 border border-slate-700 light:border-slate-300 text-slate-300 light:text-slate-800 hover:text-white font-semibold text-sm hover:border-slate-500 transition-all">
-            Explore Alex's Profile →
+            onclick="window.App.openSignUp()" 
+            class="px-5 py-3.5 rounded-xl bg-slate-900 light:bg-slate-100 border border-slate-700 light:border-slate-300 text-slate-300 light:text-slate-800 hover:text-white font-semibold text-sm hover:border-slate-500 transition-all flex items-center gap-1.5">
+            <span>✨</span>
+            <span>Create Account</span>
           </button>
         </div>
 
@@ -244,7 +256,7 @@ export function renderLandingPage() {
                 <li>✓ Basic Spaced Repetition (SM-2)</li>
               </ul>
             </div>
-            <button onclick="window.App.switchPersona('fresh')" class="w-full py-2.5 rounded-xl bg-slate-800 text-xs font-bold text-slate-200 hover:text-white">Start Free Plan</button>
+            <button onclick="window.App.openSignUp()" class="w-full py-2.5 rounded-xl bg-slate-800 text-xs font-bold text-slate-200 hover:text-white hover:bg-slate-700 transition-colors">Register Free Account →</button>
           </div>
 
           <div class="glass-card p-6 border border-cyan-500/50 bg-cyan-950/20 text-center flex flex-col justify-between shadow-xl shadow-cyan-500/10">
@@ -262,7 +274,7 @@ export function renderLandingPage() {
                 <li>✓ AI Learning Predictor Forecasts</li>
               </ul>
             </div>
-            <button onclick="window.App.switchPersona('alex')" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 text-xs font-bold text-white shadow-md">Experience Pro (Alex) →</button>
+            <button onclick="window.App.openSignIn()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 text-xs font-bold text-white shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all">Sign In to Pro Account →</button>
           </div>
 
           <div class="glass-card p-6 border border-indigo-500/40 text-center flex flex-col justify-between">
@@ -315,6 +327,8 @@ export function renderLandingPage() {
             <span>— "Your Knowledge. Your Pace. Your Personal AI Mentor."</span>
           </div>
           <div class="flex flex-wrap items-center gap-4">
+            <button onclick="window.App.openSignIn()" class="text-cyan-400 hover:underline font-bold">Sign In</button>
+            <button onclick="window.App.openSignUp()" class="text-emerald-400 hover:underline font-bold">Register</button>
             <button onclick="window.App.openGuidedTour()" class="text-amber-400 hover:underline font-semibold">12-Step Signature Tour</button>
             <button onclick="window.App.navigate('dashboard')" class="hover:text-white">Dashboard</button>
             <button onclick="window.App.navigate('coding')" class="hover:text-white">Coding Lab</button>
