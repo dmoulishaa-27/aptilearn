@@ -1,18 +1,10 @@
-// LearnIQ Intelligent Learner Model Engine (Bayesian / ELO Knowledge Tracing)
+// AptiLearn AI Advanced Learner Model Engine (Bayesian Knowledge Tracing & ELO Hybrid)
 import { store } from './state.js';
 import { SYLLABUS_CONCEPTS } from './config.js';
 
 export class LearnerModelEngine {
   /**
    * Process a single submitted question attempt and update the learner model
-   * @param {Object} params
-   * @param {string} params.conceptId - Concept ID from syllabus
-   * @param {boolean} params.isCorrect - Whether answer was correct
-   * @param {string} params.difficulty - 'Easy', 'Medium', 'Hard'
-   * @param {number} params.timeTakenSec - Seconds spent on question
-   * @param {string} params.confidence - 'Low', 'Medium', 'High'
-   * @param {string} params.questionId - Unique question ID
-   * @param {string} params.studentReasoning - Optional student thinking text
    */
   static recordAttempt({
     conceptId,
@@ -20,6 +12,7 @@ export class LearnerModelEngine {
     difficulty = "Medium",
     timeTakenSec = 30,
     confidence = "Medium",
+    hintsUsed = 0,
     questionId = "",
     studentReasoning = ""
   }) {
@@ -37,6 +30,7 @@ export class LearnerModelEngine {
       totalTimeSec: 0,
       confidenceHistory: [],
       consecutiveMistakes: 0,
+      hintsUsedTotal: 0,
       history: []
     };
 
@@ -48,10 +42,13 @@ export class LearnerModelEngine {
     if (stats.totalTimeSec === undefined) stats.totalTimeSec = 0;
     if (stats.correct === undefined) stats.correct = 0;
     if (stats.incorrect === undefined) stats.incorrect = 0;
+    if (stats.hintsUsedTotal === undefined) stats.hintsUsedTotal = 0;
 
     // Update basic counts
     stats.attempts += 1;
     stats.totalTimeSec += timeTakenSec;
+    stats.hintsUsedTotal += hintsUsed;
+
     if (isCorrect) {
       stats.correct += 1;
       stats.consecutiveMistakes = 0;
@@ -77,7 +74,11 @@ export class LearnerModelEngine {
       if (confVal === 3) baseGain += 3;
       else if (confVal === 1) baseGain *= 0.65; // Lucky guess damping
 
-      // Speed bonus (speedy accurate recall vs sluggish struggle)
+      // Hint usage dampening: each hint lowers mastery gain (demonstrates reliance on assistance)
+      if (hintsUsed === 1) baseGain *= 0.8;
+      else if (hintsUsed >= 2) baseGain *= 0.6;
+
+      // Speed bonus
       if (timeTakenSec < 20) baseGain += 2;
       else if (timeTakenSec > 75) baseGain *= 0.85;
 
@@ -112,7 +113,8 @@ export class LearnerModelEngine {
       isCorrect,
       difficulty,
       timeTakenSec,
-      confidence
+      confidence,
+      hintsUsed
     });
 
     user.conceptStats[conceptId] = stats;
@@ -121,8 +123,8 @@ export class LearnerModelEngine {
     user.weeklyQuestionsDone = (user.weeklyQuestionsDone || 0) + 1;
     
     // XP reward
-    const xpEarned = isCorrect ? (difficulty === "Hard" ? 40 : difficulty === "Medium" ? 25 : 15) : 5;
-    store.addXp(xpEarned, `Practice: ${conceptId} (${difficulty})`);
+    const xpEarned = isCorrect ? (difficulty === "Hard" ? 45 : difficulty === "Medium" ? 30 : 20) : 5;
+    store.addXp(xpEarned, `Solved: ${conceptId} (${difficulty})`);
 
     // Check for streak update
     this.checkStreakUpdate(user);
@@ -159,7 +161,7 @@ export class LearnerModelEngine {
    * Aggregate statistics across syllabus for dashboard
    */
   static getOverallMetrics(user) {
-    if (!user) return { totalAttempts: 0, overallAccuracy: 0, averageMastery: 0, strongConcepts: [], weakConcepts: [] };
+    if (!user) return { totalAttempts: 0, overallAccuracy: 0, averageMastery: 0, strongConcepts: [], weakConcepts: [], conceptScores: [] };
 
     let totalAttempts = 0;
     let totalCorrect = 0;
@@ -180,6 +182,7 @@ export class LearnerModelEngine {
         id: c.id,
         name: c.name,
         shortName: c.shortName,
+        category: c.category,
         mastery: m,
         attempts: stats ? stats.attempts : 0,
         status: this.getConceptStatus(m, stats ? stats.attempts : 0)
@@ -196,10 +199,10 @@ export class LearnerModelEngine {
     const strongConcepts = sorted.filter(c => c.mastery >= 75);
     const weakConcepts = sorted.filter(c => c.mastery < 60).reverse();
 
-    // If none attempted yet, pick default syllabus suggestions
+    // Default suggestions if none attempted
     if (weakConcepts.length === 0 && strongConcepts.length === 0) {
-      weakConcepts.push({ id: "recursion", name: "Recursion & Call Stack", mastery: 30, status: "Needs Improvement" });
-      weakConcepts.push({ id: "arrays", name: "Arrays & Memory", mastery: 45, status: "Learning" });
+      weakConcepts.push({ id: "recursion", name: "Recursion & Call Stack", mastery: 34, status: "Needs Improvement" });
+      weakConcepts.push({ id: "arrays", name: "Arrays & Memory", mastery: 62, status: "Learning" });
     }
 
     return {
@@ -234,17 +237,15 @@ export class LearnerModelEngine {
     if (user.streakDays >= 3) store.unlockBadge("streak_3");
     if (user.streakDays >= 7) store.unlockBadge("streak_7");
     
-    // Check if recursion is mastered
     if (conceptId === "recursion" && isCorrect && user.mastery.recursion >= 75) {
       store.unlockBadge("recursion_slayer");
     }
 
-    // Count how many mastered
     let masteredCount = 0;
     SYLLABUS_CONCEPTS.forEach(c => {
       if ((user.mastery[c.id] || 0) >= 75) masteredCount++;
     });
-    if (masteredCount >= 5) {
+    if (masteredCount >= 6) {
       store.unlockBadge("knowledge_master");
     }
   }

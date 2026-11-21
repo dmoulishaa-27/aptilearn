@@ -1,4 +1,4 @@
-// LearnIQ Socratic AI Personal Tutor Chat Component
+// AptiLearn AI Socratic AI Personal Tutor Chat Component with Explain It Again Selector
 import { store } from '../state.js';
 import { tutorEngine } from '../tutorEngine.js';
 import { LearnerModelEngine } from '../learnerModel.js';
@@ -27,10 +27,10 @@ export function renderTutorView() {
                 </div>
               </div>
               <div>
-                <h3 class="text-sm font-bold text-white">Socrates</h3>
+                <h3 class="text-sm font-bold text-white light:text-slate-900">Socrates Mentor</h3>
                 <span class="text-[10px] text-emerald-400 flex items-center gap-1">
                   <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                  Active Context Synced
+                  Active Learner Context
                 </span>
               </div>
             </div>
@@ -38,47 +38,51 @@ export function renderTutorView() {
             <div class="pt-2 border-t border-slate-800 space-y-2 text-xs">
               <div class="flex justify-between text-slate-400">
                 <span>Student:</span>
-                <span class="text-white font-medium">${user?.name?.split(' ')[0] || 'User'}</span>
+                <span class="text-white light:text-slate-900 font-semibold">${user?.name?.split(' ')[0] || 'User'}</span>
               </div>
               <div class="flex justify-between text-slate-400">
-                <span>Goal:</span>
-                <span class="text-white font-medium truncate max-w-[120px]">${user?.examGoal || 'Exam Prep'}</span>
-              </div>
-              <div class="flex justify-between text-slate-400">
-                <span>Overall Mastery:</span>
+                <span>Mastery:</span>
                 <span class="text-cyan-400 font-bold font-mono">${metrics.averageMastery}%</span>
               </div>
+              <div class="flex justify-between text-slate-400">
+                <span>Language:</span>
+                <span class="text-indigo-300 font-semibold">${store.language === 'hi' ? 'हिंदी' : 'English'}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Explain It Again Quick Panel -->
+          <div class="glass-card p-4 border border-cyan-500/30 space-y-2">
+            <span class="text-xs font-bold text-cyan-400 uppercase tracking-wider">Explain It Again Mode</span>
+            <p class="text-[11px] text-slate-400">Select an alternate explanation style for complex topics:</p>
+            <div class="space-y-1.5 mt-2">
+              <button onclick="window.App.tutorExplainMode('simple')" class="w-full text-left p-2 rounded-lg bg-slate-900/80 hover:bg-slate-800 text-[11px] text-slate-300 hover:text-white border border-slate-800">
+                🎈 Explain Simply (ELI5)
+              </button>
+              <button onclick="window.App.tutorExplainMode('analogy')" class="w-full text-left p-2 rounded-lg bg-slate-900/80 hover:bg-slate-800 text-[11px] text-slate-300 hover:text-white border border-slate-800">
+                🌍 Explain with Analogy
+              </button>
+              <button onclick="window.App.tutorExplainMode('step_by_step')" class="w-full text-left p-2 rounded-lg bg-slate-900/80 hover:bg-slate-800 text-[11px] text-slate-300 hover:text-white border border-slate-800">
+                🔍 Explain Step-by-Step
+              </button>
+              <button onclick="window.App.tutorExplainMode('visual')" class="w-full text-left p-2 rounded-lg bg-slate-900/80 hover:bg-slate-800 text-[11px] text-slate-300 hover:text-white border border-slate-800">
+                🖼️ Explain Visually (Stack)
+              </button>
+              <button onclick="window.App.tutorExplainMode('quiz')" class="w-full text-left p-2 rounded-lg bg-slate-900/80 hover:bg-slate-800 text-[11px] text-slate-300 hover:text-white border border-slate-800">
+                🎯 Give Practice Question
+              </button>
             </div>
           </div>
 
           <!-- Weak Areas Chip List -->
           <div class="glass-card p-4 border border-slate-800 space-y-2">
-            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Known Weak Concepts</span>
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Target Weak Topics</span>
             <div class="flex flex-wrap gap-1.5 mt-2">
               ${metrics.weakConcepts.map(c => `
                 <span class="text-[10px] px-2 py-0.5 rounded bg-rose-950/60 text-rose-300 border border-rose-800 font-medium">
                   ${c.name} (${c.mastery}%)
                 </span>
               `).join('')}
-            </div>
-          </div>
-
-          <!-- Quick Prompts -->
-          <div class="glass-card p-4 border border-slate-800 space-y-2">
-            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Suggested Prompts</span>
-            <div class="space-y-1.5 mt-2">
-              <button onclick="window.App.askTutor('Why did I fail Recursion Base Cases?')" class="w-full text-left p-2 rounded-lg bg-slate-900 text-[11px] text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-800 transition-colors">
-                • Explain my recursion mistake
-              </button>
-              <button onclick="window.App.askTutor('Give me an intuitive analogy for Stacks vs Queues')" class="w-full text-left p-2 rounded-lg bg-slate-900 text-[11px] text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-800 transition-colors">
-                • Real-world analogy for Stacks
-              </button>
-              <button onclick="window.App.askTutor('Explain Java pass-by-value vs reference passing')" class="w-full text-left p-2 rounded-lg bg-slate-900 text-[11px] text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-800 transition-colors">
-                • Pass-by-value in Java
-              </button>
-              <button onclick="window.App.askTutor('Generate a personalized 3-day study plan based on my weak concepts')" class="w-full text-left p-2 rounded-lg bg-slate-900 text-[11px] text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-800 transition-colors">
-                • Generate a 3-day study plan
-              </button>
             </div>
           </div>
 
@@ -103,7 +107,12 @@ export function renderTutorView() {
                     : 'bg-slate-900/90 text-slate-200 border border-slate-800 rounded-tl-none shadow-sm'
                 }">
                   <div class="whitespace-pre-wrap">${formatMessageText(m.text)}</div>
-                  <div class="text-[10px] mt-2 opacity-60 text-right">${m.timestamp}</div>
+                  <div class="flex items-center justify-between text-[10px] mt-2 opacity-60">
+                    ${m.sender === 'tutor' ? `
+                      <button onclick="sound.speak(\`${escapeQuotes(m.text)}\`)" class="text-cyan-400 hover:underline">🔊 Listen</button>
+                    ` : '<span></span>'}
+                    <span>${m.timestamp}</span>
+                  </div>
                 </div>
 
                 ${m.sender === 'user' ? `
@@ -117,7 +126,7 @@ export function renderTutorView() {
           <div class="mt-4 pt-4 border-t border-slate-800 flex items-center gap-2">
             <input 
               id="tutor-chat-input"
-              type="text"
+              type="text" 
               placeholder="Ask Socrates anything about Java, algorithms, or your mistakes..."
               onkeydown="if(event.key === 'Enter') window.App.submitTutorChat()"
               class="grow bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
@@ -139,8 +148,13 @@ export function renderTutorView() {
 
 function formatMessageText(text) {
   if (!text) return '';
-  // Simple markdown-style bold and code highlight
   return text
     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/```([\s\S]*?)```/g, '<div class="p-2.5 rounded-lg bg-slate-950 font-mono text-[11px] text-cyan-300 my-2 overflow-x-auto"><pre><code>$1</code></pre></div>')
     .replace(/`([^`]+)`/g, '<code class="bg-slate-950 px-1 py-0.5 rounded text-cyan-300 font-mono text-[11px]">$1</code>');
+}
+
+function escapeQuotes(text) {
+  if (!text) return '';
+  return text.replace(/`/g, '\\`').replace(/"/g, '&quot;');
 }

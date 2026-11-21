@@ -1,4 +1,4 @@
-// LearnIQ Application Core Orchestrator & Global Router
+// AptiLearn AI Application Core Orchestrator & Global Router
 import { store } from './state.js';
 import { renderNavbar } from './components/navbar.js';
 import { renderLandingPage } from './components/landingPage.js';
@@ -8,35 +8,39 @@ import { renderGraphView, initGraphCanvas, graphZoomIn, graphZoomOut, graphReset
 import { renderPracticeView, practiceState } from './components/practiceView.js';
 import { renderMisconceptionView } from './components/misconceptionView.js';
 import { renderRevisionView, revisionController } from './components/revisionView.js';
-import { renderTutorView } from './components/tutorView.js';
-import { tutorEngine } from './tutorEngine.js';
+import { renderTutorView, tutorEngine } from './components/tutorView.js';
+import { renderPredictorView } from './components/predictorView.js';
+import { renderNotesView, notesController } from './components/notesView.js';
+import { renderFlashcardsView, flashcardController } from './components/flashcardsView.js';
+import { renderExamSimulatorView, examController } from './components/examSimulatorView.js';
+import { renderCodingLabView, codingController } from './components/codingLabView.js';
+import { renderPlannerView } from './components/plannerView.js';
 import { renderTeacherView, teacherController } from './components/teacherView.js';
+import { renderParentView } from './components/parentView.js';
 import { renderReportsView } from './components/reportsView.js';
 import { renderAuthModal, authController } from './components/authModal.js';
+import { renderOnboardingModal, onboardingController } from './components/onboardingModal.js';
 import { renderGuidedTourModal, tourController } from './components/guidedTourModal.js';
 import { MisconceptionEngine } from './misconceptionEngine.js';
 import { sound } from './soundFx.js';
 
-class LearnIQApp {
+class AptiLearnApp {
   constructor() {
     this.personaMenuOpen = false;
     this.mobileMenuOpen = false;
+    this.notifMenuOpen = false;
     this.init();
   }
 
   init() {
-    // Expose global controller
     window.App = this;
 
-    // Listen to store updates
     store.subscribe(() => {
       this.render();
     });
 
-    // Initial render
     this.render();
 
-    // Auto-open guided tour if URL has ?tour=true or fresh start
     if (window.location.search.includes('tour=true')) {
       setTimeout(() => this.openGuidedTour(), 500);
     }
@@ -47,10 +51,12 @@ class LearnIQApp {
     const contentEl = document.getElementById('main-content');
     const authModalEl = document.getElementById('auth-modal-container');
     const tourModalEl = document.getElementById('guided-tour-container');
+    const onbModalEl = document.getElementById('onboarding-modal-container');
 
     if (navbarEl) navbarEl.innerHTML = renderNavbar();
     if (authModalEl) authModalEl.innerHTML = renderAuthModal();
     if (tourModalEl) tourModalEl.innerHTML = renderGuidedTourModal();
+    if (onbModalEl) onbModalEl.innerHTML = renderOnboardingModal();
 
     if (!contentEl) return;
 
@@ -71,22 +77,42 @@ class LearnIQApp {
       case 'practice':
         contentEl.innerHTML = renderPracticeView();
         break;
+      case 'coding':
+        contentEl.innerHTML = renderCodingLabView();
+        break;
+      case 'exam':
+        contentEl.innerHTML = renderExamSimulatorView();
+        break;
       case 'misconceptions':
         contentEl.innerHTML = renderMisconceptionView();
         break;
       case 'revision':
         contentEl.innerHTML = renderRevisionView();
         break;
+      case 'notes':
+        contentEl.innerHTML = renderNotesView();
+        break;
+      case 'flashcards':
+        contentEl.innerHTML = renderFlashcardsView();
+        break;
       case 'tutor':
         contentEl.innerHTML = renderTutorView();
-        // Scroll messages to bottom
         setTimeout(() => {
           const container = document.getElementById('tutor-messages-container');
           if (container) container.scrollTop = container.scrollHeight;
         }, 50);
         break;
+      case 'predictor':
+        contentEl.innerHTML = renderPredictorView();
+        break;
+      case 'planner':
+        contentEl.innerHTML = renderPlannerView();
+        break;
       case 'teacher':
         contentEl.innerHTML = renderTeacherView();
+        break;
+      case 'parent':
+        contentEl.innerHTML = renderParentView();
         break;
       case 'reports':
         contentEl.innerHTML = renderReportsView();
@@ -101,24 +127,48 @@ class LearnIQApp {
     sound.playClick();
     this.personaMenuOpen = false;
     this.mobileMenuOpen = false;
+    this.notifMenuOpen = false;
     store.setRoute(route, params);
+  }
+
+  // UI Theme, Language & Voice
+  toggleTheme() {
+    const next = store.theme === 'dark' ? 'light' : 'dark';
+    store.setTheme(next);
+  }
+
+  toggleLanguage() {
+    const next = store.language === 'en' ? 'hi' : 'en';
+    store.setLanguage(next);
+    sound.playClick();
+  }
+
+  toggleVoice() {
+    store.toggleVoice();
+    sound.playClick();
   }
 
   // Persona Actions
   togglePersonaMenu() {
     this.personaMenuOpen = !this.personaMenuOpen;
     const menu = document.getElementById('persona-menu');
-    if (menu) {
-      menu.classList.toggle('hidden', !this.personaMenuOpen);
-    }
+    if (menu) menu.classList.toggle('hidden', !this.personaMenuOpen);
   }
 
   toggleMobileMenu() {
     this.mobileMenuOpen = !this.mobileMenuOpen;
     const menu = document.getElementById('mobile-menu');
-    if (menu) {
-      menu.classList.toggle('hidden', !this.mobileMenuOpen);
-    }
+    if (menu) menu.classList.toggle('hidden', !this.mobileMenuOpen);
+  }
+
+  toggleNotificationMenu() {
+    this.notifMenuOpen = !this.notifMenuOpen;
+    const menu = document.getElementById('notifications-menu');
+    if (menu) menu.classList.toggle('hidden', !this.notifMenuOpen);
+  }
+
+  markAllNotificationsRead() {
+    store.markNotificationsRead();
   }
 
   switchPersona(personaKey) {
@@ -154,6 +204,24 @@ class LearnIQApp {
   submitAuthRegister() { authController.submitRegister(); }
   submitAuthForgot() { authController.submitForgot(); }
   saveApiKey(key) { authController.saveSettings(key); }
+
+  // Onboarding
+  openOnboarding() {
+    this.togglePersonaMenu();
+    onboardingController.open();
+  }
+
+  closeOnboarding() {
+    onboardingController.close();
+  }
+
+  setOnboardingField(field, val) {
+    onboardingController[field] = val;
+  }
+
+  saveOnboarding() {
+    onboardingController.save();
+  }
 
   // Diagnostic
   startDiagnostic() {
@@ -258,13 +326,19 @@ class LearnIQApp {
     revisionController.closeModal();
   }
 
-  // AI Tutor
+  // AI Tutor & Explain It Again
   async askTutor(question) {
     store.setRoute('tutor');
     setTimeout(async () => {
       await tutorEngine.sendMessage(question);
       store.notify();
     }, 100);
+  }
+
+  async tutorExplainMode(mode) {
+    sound.playClick();
+    await tutorEngine.explainItAgain(mode);
+    store.notify();
   }
 
   async submitTutorChat() {
@@ -275,6 +349,116 @@ class LearnIQApp {
     sound.playClick();
     await tutorEngine.sendMessage(text);
     store.notify();
+  }
+
+  // Smart Notes
+  setDocTab(tab) {
+    notesController.setTab(tab);
+  }
+
+  selectDoc(id) {
+    notesController.setActiveDocument(id);
+  }
+
+  handleDocUpload(e) {
+    notesController.handleFileUpload(e);
+  }
+
+  askDocQuestion(q) {
+    notesController.askDocument(q);
+  }
+
+  selectDocMCQ(qIdx, oIdx) {
+    notesController.selectMCQOption(qIdx, oIdx);
+  }
+
+  flipDocFlashcard() {
+    notesController.flipFlashcard();
+  }
+
+  nextDocFlashcard() {
+    notesController.nextFlashcard();
+  }
+
+  prevDocFlashcard() {
+    notesController.prevFlashcard();
+  }
+
+  // Smart Flashcards Deck
+  flipFlashcardDeck() {
+    flashcardController.flip();
+  }
+
+  rateFlashcardDeck(rating) {
+    flashcardController.rateCard(rating);
+  }
+
+  nextFlashcardDeck() {
+    flashcardController.next();
+  }
+
+  prevFlashcardDeck() {
+    flashcardController.prev();
+  }
+
+  // Real Exam Simulator
+  startSimulatedExam(timed) {
+    examController.startExam(timed);
+  }
+
+  examSelectOption(optIdx) {
+    examController.selectOption(optIdx);
+  }
+
+  examToggleReview() {
+    examController.toggleReviewFlag();
+  }
+
+  examGoTo(idx) {
+    examController.goToQuestion(idx);
+  }
+
+  examNext() {
+    examController.nextQuestion();
+  }
+
+  examPrev() {
+    examController.prevQuestion();
+  }
+
+  submitSimulatedExam() {
+    examController.submitExam();
+  }
+
+  exitExamSimulator() {
+    examController.exitExam();
+  }
+
+  // Coding Lab
+  selectCodingProblem(id) {
+    codingController.selectProblem(id);
+  }
+
+  updateCodeLab(code) {
+    codingController.updateCode(code);
+  }
+
+  revealCodingHint() {
+    codingController.revealHint();
+  }
+
+  runCodingLab() {
+    codingController.runCode();
+  }
+
+  // Study Planner
+  togglePlannerTask(taskId) {
+    store.toggleStudyTask(taskId);
+  }
+
+  rescheduleMissedTasks() {
+    store.rescheduleMissedTasks();
+    sound.playLevelUp();
   }
 
   // Teacher View
@@ -289,7 +473,7 @@ class LearnIQApp {
     teacherController.closeStudentModal();
   }
 
-  // Judge Guided 9-Step Tour
+  // Judge Guided 12-Step Tour
   openGuidedTour() {
     tourController.open(0);
   }
@@ -311,7 +495,6 @@ class LearnIQApp {
   }
 }
 
-// Instantiate on window load
 document.addEventListener('DOMContentLoaded', () => {
-  new LearnIQApp();
+  new AptiLearnApp();
 });

@@ -1,4 +1,4 @@
-// LearnIQ Interactive Concept Knowledge Graph (Canvas / SVG Renderer)
+// AptiLearn AI Interactive Concept Knowledge Graph (Canvas / SVG Renderer)
 import { SYLLABUS_CONCEPTS } from './config.js';
 import { store } from './state.js';
 import { LearnerModelEngine } from './learnerModel.js';
@@ -10,9 +10,9 @@ export class KnowledgeGraphVisualizer {
     this.onNodeClick = onNodeClick;
 
     // Viewport transform
-    this.scale = 1.0;
-    this.panX = 30;
-    this.panY = 20;
+    this.scale = 0.95;
+    this.panX = 20;
+    this.panY = 10;
     this.isDragging = false;
     this.dragStartX = 0;
     this.dragStartY = 0;
@@ -22,7 +22,7 @@ export class KnowledgeGraphVisualizer {
     // Node layout positions
     this.nodes = SYLLABUS_CONCEPTS.map(c => ({
       ...c,
-      radius: 36
+      radius: 35
     }));
 
     this.initEvents();
@@ -35,9 +35,9 @@ export class KnowledgeGraphVisualizer {
     const rect = parent.getBoundingClientRect();
     const dpr = window.devicePixelRatio || 1;
     this.canvas.width = rect.width * dpr;
-    this.canvas.height = Math.max(520, rect.height) * dpr;
+    this.canvas.height = Math.max(560, rect.height) * dpr;
     this.canvas.style.width = `${rect.width}px`;
-    this.canvas.style.height = `${Math.max(520, rect.height)}px`;
+    this.canvas.style.height = `${Math.max(560, rect.height)}px`;
     this.ctx.scale(dpr, dpr);
     this.render();
   }
@@ -90,7 +90,7 @@ export class KnowledgeGraphVisualizer {
     this.canvas.addEventListener('wheel', (e) => {
       e.preventDefault();
       const zoomFactor = e.deltaY < 0 ? 1.08 : 0.92;
-      this.scale = Math.max(0.6, Math.min(2.0, this.scale * zoomFactor));
+      this.scale = Math.max(0.5, Math.min(2.0, this.scale * zoomFactor));
       this.render();
     }, { passive: false });
   }
@@ -101,19 +101,18 @@ export class KnowledgeGraphVisualizer {
   }
 
   zoomOut() {
-    this.scale = Math.max(0.6, this.scale * 0.85);
+    this.scale = Math.max(0.5, this.scale * 0.85);
     this.render();
   }
 
   resetView() {
-    this.scale = 1.0;
-    this.panX = 30;
-    this.panY = 20;
+    this.scale = 0.95;
+    this.panX = 20;
+    this.panY = 10;
     this.render();
   }
 
   findNodeAt(screenX, screenY) {
-    // Transform screen coords to world coords
     const worldX = (screenX - this.panX) / this.scale;
     const worldY = (screenY - this.panY) / this.scale;
 
@@ -149,12 +148,11 @@ export class KnowledgeGraphVisualizer {
   render() {
     const rect = this.canvas.getBoundingClientRect();
     const width = rect.width;
-    const height = Math.max(520, rect.height);
+    const height = Math.max(560, rect.height);
     const ctx = this.ctx;
 
     ctx.clearRect(0, 0, width, height);
 
-    // Save state
     ctx.save();
     ctx.translate(this.panX, this.panY);
     ctx.scale(this.scale, this.scale);
@@ -184,22 +182,19 @@ export class KnowledgeGraphVisualizer {
     const dy = target.y - source.y;
     const angle = Math.atan2(dy, dx);
 
-    // Edge starts at source boundary, ends at target boundary
     const startX = source.x + Math.cos(angle) * source.radius;
     const startY = source.y + Math.sin(angle) * source.radius;
     const endX = target.x - Math.cos(angle) * (target.radius + 6);
     const endY = target.y - Math.sin(angle) * (target.radius + 6);
 
-    // Draw curved or straight connection line
     ctx.beginPath();
     ctx.moveTo(startX, startY);
     ctx.lineTo(endX, endY);
-    ctx.strokeStyle = "rgba(56, 189, 248, 0.22)";
-    ctx.lineWidth = 2.2;
+    ctx.strokeStyle = "rgba(56, 189, 248, 0.25)";
+    ctx.lineWidth = 2.0;
     ctx.stroke();
 
-    // Arrowhead pointing to target
-    const arrowSize = 8;
+    const arrowSize = 7;
     ctx.beginPath();
     ctx.moveTo(endX, endY);
     ctx.lineTo(
@@ -211,7 +206,7 @@ export class KnowledgeGraphVisualizer {
       endY - arrowSize * Math.sin(angle + Math.PI / 6)
     );
     ctx.closePath();
-    ctx.fillStyle = "rgba(56, 189, 248, 0.5)";
+    ctx.fillStyle = "rgba(56, 189, 248, 0.55)";
     ctx.fill();
   }
 
@@ -224,27 +219,23 @@ export class KnowledgeGraphVisualizer {
 
     ctx.save();
 
-    // Outer glow if hovered or selected or needs improvement
     if (isSelected || isHovered || colors.status === "Needs Improvement") {
       ctx.shadowColor = colors.glow;
-      ctx.shadowBlur = isSelected ? 24 : 14;
+      ctx.shadowBlur = isSelected ? 22 : 12;
     }
 
-    // Node body circle
     ctx.beginPath();
     ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
     ctx.fillStyle = colors.fill;
     ctx.fill();
 
-    // Border ring
     ctx.lineWidth = isSelected ? 3.5 : 2.0;
     ctx.strokeStyle = isSelected ? "#ffffff" : colors.stroke;
     ctx.stroke();
 
-    // Reset shadow
     ctx.shadowBlur = 0;
 
-    // Progress arc around circle border
+    // Progress arc
     if (mastery > 0) {
       const startAngle = -Math.PI / 2;
       const endAngle = startAngle + (Math.PI * 2 * (mastery / 100));
@@ -256,14 +247,14 @@ export class KnowledgeGraphVisualizer {
       ctx.stroke();
     }
 
-    // Node Title (Short)
+    // Title
     ctx.fillStyle = "#ffffff";
     ctx.font = "600 11px 'Plus Jakarta Sans', system-ui, sans-serif";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.fillText(node.shortName, node.x, node.y - 7);
+    ctx.fillText(node.shortName, node.x, node.y - 6);
 
-    // Mastery Score Badge under text
+    // Mastery %
     ctx.fillStyle = colors.text;
     ctx.font = "bold 11px 'JetBrains Mono', monospace";
     ctx.fillText(`${mastery}%`, node.x, node.y + 11);

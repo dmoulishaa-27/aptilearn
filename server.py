@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-LearnIQ – Adaptive AI Exam-Prep Tutor with a Learner Model
+AptiLearn AI – Intelligent Adaptive Learning & Exam Preparation Platform
 Backend API Server & Static File Host
 """
 

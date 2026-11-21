@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LearnIQ – Adaptive AI Exam-Prep Tutor with a Learner Model</title>
-  <meta name="description" content="LearnIQ is an intelligent exam-preparation platform that understands how each student learns through continuous Bayesian concept tracking, misconception detection, and spaced repetition." />
+  <title>AptiLearn AI – Intelligent Adaptive Learning & Exam Preparation Platform</title>
+  <meta name="description" content="AptiLearn AI is a personalized educational platform that understands how individual students learn, identifies cognitive knowledge gaps, and predicts exam readiness." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2338bdf8'><path d='M12 2v8l4-4-4-4zM22 22H2l10-10 10 10z'/></svg>" />
 
   <!-- Tailwind CSS CDN -->
@@ -45,7 +45,7 @@
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="css/styles.css" />
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-cyan-500/30 selection:text-cyan-200">
+<body class="bg-slate-950 dark:bg-slate-950 light:bg-slate-50 text-slate-100 light:text-slate-900 min-h-screen flex flex-col selection:bg-cyan-500/30 selection:text-cyan-200 transition-colors duration-200">
 
   <!-- Top Navbar Shell -->
   <div id="navbar-container"></div>
@@ -55,6 +55,7 @@
 
   <!-- Modals & Drawers Container -->
   <div id="auth-modal-container"></div>
+  <div id="onboarding-modal-container"></div>
   <div id="guided-tour-container"></div>
 
   <!-- Main ES Module Script -->

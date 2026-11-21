@@ -1,4 +1,4 @@
-// LearnIQ Web Audio API Sound Synthesizer
+// AptiLearn AI Web Audio API Sound Synthesizer & Speech Synthesis
 import { store } from './state.js';
 
 class SoundEffects {
@@ -106,6 +106,37 @@ class SoundEffects {
 
     osc.start(now);
     osc.stop(now + 0.05);
+  }
+
+  // Voice Read-Aloud (Text-to-Speech)
+  speak(text) {
+    if (!store.voiceEnabled || !window.speechSynthesis) return;
+    window.speechSynthesis.cancel(); // Stop prior speech
+
+    // Clean markdown/code symbols for natural speech
+    const clean = text
+      .replace(/```[\s\S]*?```/g, "Code block omitted.")
+      .replace(/`([^`]+)`/g, "$1")
+      .replace(/\*\*(.*?)\*\*/g, "$1")
+      .replace(/#/g, "");
+
+    const utterance = new SpeechSynthesisUtterance(clean);
+    utterance.rate = 1.05;
+    utterance.pitch = 1.0;
+    
+    if (store.language === 'hi') {
+      utterance.lang = 'hi-IN';
+    } else {
+      utterance.lang = 'en-US';
+    }
+
+    window.speechSynthesis.speak(utterance);
+  }
+
+  stopSpeaking() {
+    if (window.speechSynthesis) {
+      window.speechSynthesis.cancel();
+    }
   }
 }
 

@@ -7,12 +7,12 @@
   "examGoal": "Java & DSA Placement Exam 2026",
   "level": "Intermediate",
   "streakDays": 5,
-  "lastActiveDate": "2026-11-21T09:44:21.546Z",
-  "totalXp": 1465,
+  "lastActiveDate": "2026-11-21T09:43:24.527Z",
+  "totalXp": 1420,
   "levelName": "Algorithm Apprentice",
   "diagnosticCompleted": true,
   "weeklyGoalQuestions": 30,
-  "weeklyQuestionsDone": 22,
+  "weeklyQuestionsDone": 19,
   "mastery": {
     "variables": 88,
     "conditionals": 82,
@@ -20,7 +20,7 @@
     "functions": 76,
     "arrays": 58,
     "strings": 72,
-    "recursion": 48,
+    "recursion": 34,
     "searching": 64,
     "sorting": 46,
     "linked_lists": 42,
@@ -29,47 +29,11 @@
   },
   "conceptStats": {
     "recursion": {
-      "attempts": 11,
-      "correct": 4,
-      "totalTimeSec": 444,
+      "attempts": 8,
+      "correct": 2,
+      "totalTimeSec": 410,
       "confidenceAvg": 1.6,
-      "lastErrorReason": "Forgot base case",
-      "confidenceHistory": [
-        3,
-        3,
-        3
-      ],
-      "history": [
-        {
-          "timestamp": "2026-11-21T09:37:13.947Z",
-          "mastery": 48,
-          "delta": 14,
-          "isCorrect": true,
-          "difficulty": "Easy",
-          "timeTakenSec": 7,
-          "confidence": "High"
-        },
-        {
-          "timestamp": "2026-11-21T09:43:46.444Z",
-          "mastery": 32,
-          "delta": -16,
-          "isCorrect": false,
-          "difficulty": "Medium",
-          "timeTakenSec": 9,
-          "confidence": "High"
-        },
-        {
-          "timestamp": "2026-11-21T09:44:21.545Z",
-          "mastery": 48,
-          "delta": 16,
-          "isCorrect": true,
-          "difficulty": "Medium",
-          "timeTakenSec": 18,
-          "confidence": "High"
-        }
-      ],
-      "consecutiveMistakes": 0,
-      "incorrect": 1
+      "lastErrorReason": "Forgot base case"
     },
     "arrays": {
       "attempts": 12,
@@ -150,23 +114,6 @@
     }
   },
   "activeMisconceptions": [
-    {
-      "id": "misc_1795254226451",
-      "conceptId": "recursion",
-      "conceptName": "Recursion & Call Stack",
-      "title": "Missing or Omitted Recursion Base Case",
-      "severity": "Critical",
-      "detectedAt": "2026-11-21T09:43:46.451Z",
-      "resolved": false,
-      "studentReasoning": "I thought recursion would automatically terminate when n reached negative numbers.",
-      "explanation": "You recognized the recursive formula, but omitted the terminating condition. A recursive function has no built-in intuition to stop. In Java, each recursive call allocates a new stack frame; without an explicit base case guard (e.g. `if (n <= 1) return 1;`), it runs until the JVM exhausts thread stack memory and crashes with `java.lang.StackOverflowError`.",
-      "counterExample": {
-        "incorrectCode": "// Problematic: No base case\nint sum(int n) {\n    return n + sum(n - 1); // Continues into negative infinity\n}",
-        "correctCode": "// Correct: Guard condition at Line 1\nint sum(int n) {\n    if (n <= 0) return 0; // Terminating Base Case\n    return n + sum(n - 1);\n}",
-        "trace": "sum(2) -> 2 + sum(1) -> 2 + 1 + sum(0) -> returns 0 -> unwinds cleanly to 3."
-      },
-      "remediationQuizId": "rec_base_fix"
-    },
     {
       "id": "misc_rec_01",
       "conceptId": "recursion",
