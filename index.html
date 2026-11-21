@@ -3,9 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AptiLearn AI – Intelligent Adaptive Learning & Exam Preparation Platform</title>
-  <meta name="description" content="AptiLearn AI is a personalized educational platform that understands how individual students learn, identifies cognitive knowledge gaps, and predicts exam readiness." />
+  <title>LearnIQ Studio 3.0 – Adaptive AI Cognitive Exam-Prep Platform</title>
+  <meta name="description" content="LearnIQ Studio 3.0 is a professional adaptive AI learning platform with Bayesian EMA Learner Modeling, 15-Node Concept DAG, and Socratic Copilot." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2338bdf8'><path d='M12 2v8l4-4-4-4zM22 22H2l10-10 10 10z'/></svg>" />
+
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Chart.js for High-DPI Cognitive Radar Chart -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -15,14 +23,15 @@
       theme: {
         extend: {
           colors: {
-            slate: {
-              950: '#070d19',
-              900: '#0f172a',
-              850: '#131e33',
-              800: '#1e293b',
-              700: '#334155'
+            obsidian: {
+              950: '#070b14',
+              900: '#0b1120',
+              850: '#0f172a',
+              800: '#15203b',
+              700: '#1e293b'
             },
             cyan: {
+              300: '#7dd3fc',
               400: '#38bdf8',
               500: '#0ea5e9',
               600: '#0284c7'
@@ -45,15 +54,31 @@
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="css/styles.css" />
 </head>
-<body class="bg-slate-950 dark:bg-slate-950 light:bg-slate-50 text-slate-100 light:text-slate-900 min-h-screen flex flex-col selection:bg-cyan-500/30 selection:text-cyan-200 transition-colors duration-200">
+<body class="bg-[#070b14] dark:bg-[#070b14] light:bg-[#f8fafc] text-slate-100 light:text-slate-900 min-h-screen flex flex-col selection:bg-cyan-500/30 selection:text-cyan-200 transition-colors duration-200">
 
-  <!-- Top Navbar Shell -->
-  <div id="navbar-container"></div>
+  <!-- Main Studio Layout: Fixed Left Sidebar + Main Content Shell -->
+  <div class="flex h-screen overflow-hidden">
+    
+    <!-- Left Sidebar Container -->
+    <aside id="sidebar-container" class="shrink-0 z-30 transition-all duration-300"></aside>
 
-  <!-- Main View Container -->
-  <main id="main-content" class="grow relative"></main>
+    <!-- Right Workspace Area: Sticky Top Action Bar + Dynamic Main Content -->
+    <div class="flex flex-col flex-1 h-screen overflow-hidden relative">
+      
+      <!-- Top Action Bar (Breadcrumbs, Cognitive EMA, ⌘K Search, Streak, Tour) -->
+      <header id="topbar-container" class="shrink-0 z-20"></header>
 
-  <!-- Modals & Drawers Container -->
+      <!-- Scrollable Main Content -->
+      <main id="main-content" class="flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 relative"></main>
+
+    </div>
+
+  </div>
+
+  <!-- Global Command Palette Modal (⌘K) -->
+  <div id="command-palette-container"></div>
+
+  <!-- Auth, Onboarding & Guided Tour Modals -->
   <div id="auth-modal-container"></div>
   <div id="onboarding-modal-container"></div>
   <div id="guided-tour-container"></div>

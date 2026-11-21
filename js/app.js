@@ -1,8 +1,10 @@
-// AptiLearn AI Application Core Orchestrator & Global Router
+// LearnIQ Studio 3.0 Core Orchestrator & Global Router
 import { store } from './state.js';
-import { renderNavbar } from './components/navbar.js';
+import { renderSidebar } from './components/sidebar.js';
+import { renderTopBar } from './components/topBar.js';
+import { renderCommandPalette, commandPalette } from './components/commandPalette.js';
 import { renderLandingPage } from './components/landingPage.js';
-import { renderDashboardView } from './components/dashboardView.js';
+import { renderDashboardView, initCognitiveRadarChart } from './components/dashboardView.js';
 import { renderDiagnosticView, diagnosticController } from './components/diagnosticView.js';
 import { renderGraphView, initGraphCanvas, graphZoomIn, graphZoomOut, graphResetView } from './components/graphView.js';
 import { renderPracticeView, practiceState } from './components/practiceView.js';
@@ -27,7 +29,7 @@ import { sound } from './soundFx.js';
 class AptiLearnApp {
   constructor() {
     this.personaMenuOpen = false;
-    this.mobileMenuOpen = false;
+    this.sidebarDrawerOpen = false;
     this.notifMenuOpen = false;
     this.init();
   }
@@ -47,13 +49,17 @@ class AptiLearnApp {
   }
 
   render() {
-    const navbarEl = document.getElementById('navbar-container');
+    const sidebarEl = document.getElementById('sidebar-container');
+    const topbarEl = document.getElementById('topbar-container');
     const contentEl = document.getElementById('main-content');
+    const cmdPaletteEl = document.getElementById('command-palette-container');
     const authModalEl = document.getElementById('auth-modal-container');
     const tourModalEl = document.getElementById('guided-tour-container');
     const onbModalEl = document.getElementById('onboarding-modal-container');
 
-    if (navbarEl) navbarEl.innerHTML = renderNavbar();
+    if (sidebarEl) sidebarEl.innerHTML = renderSidebar();
+    if (topbarEl) topbarEl.innerHTML = renderTopBar();
+    if (cmdPaletteEl) cmdPaletteEl.innerHTML = renderCommandPalette();
     if (authModalEl) authModalEl.innerHTML = renderAuthModal();
     if (tourModalEl) tourModalEl.innerHTML = renderGuidedTourModal();
     if (onbModalEl) onbModalEl.innerHTML = renderOnboardingModal();
@@ -66,6 +72,7 @@ class AptiLearnApp {
         break;
       case 'dashboard':
         contentEl.innerHTML = renderDashboardView();
+        setTimeout(() => initCognitiveRadarChart(), 60);
         break;
       case 'diagnostic':
         contentEl.innerHTML = renderDiagnosticView();
@@ -153,6 +160,32 @@ class AptiLearnApp {
     this.personaMenuOpen = !this.personaMenuOpen;
     const menu = document.getElementById('persona-menu');
     if (menu) menu.classList.toggle('hidden', !this.personaMenuOpen);
+  }
+
+  toggleSidebarDrawer() {
+    this.sidebarDrawerOpen = !this.sidebarDrawerOpen;
+    const sb = document.getElementById('sidebar-container');
+    if (sb) {
+      sb.classList.toggle('hidden', !this.sidebarDrawerOpen);
+    }
+  }
+
+  // Command Palette (⌘K)
+  openCommandPalette() {
+    commandPalette.open();
+  }
+
+  closeCommandPalette() {
+    commandPalette.close();
+  }
+
+  setCommandPaletteQuery(q) {
+    commandPalette.setQuery(q);
+  }
+
+  executeCommand(idx) {
+    commandPalette.selectedIndex = idx;
+    commandPalette.executeSelected();
   }
 
   toggleMobileMenu() {

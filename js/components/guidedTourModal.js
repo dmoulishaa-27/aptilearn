@@ -1,212 +1,179 @@
-// AptiLearn AI Signature Hackathon 12-Step Guided Demonstration Controller
+// LearnIQ Studio 3.0 Signature 9-Step Judge Workflow Tour
 import { store } from '../state.js';
 import { sound } from '../soundFx.js';
-import { LearnerModelEngine } from '../learnerModel.js';
 import { practiceState } from './practiceView.js';
 import { tutorEngine } from '../tutorEngine.js';
 
 export const TOUR_STEPS = [
   {
     step: 1,
-    title: "1. Student Registration & Goal Calibration",
-    summary: "Student registers and selects Java & Data Structures for Placement Exam Prep.",
-    actionName: "Simulate Registration",
-    route: "dashboard",
-    execute: () => {
-      window.App.switchPersona('fresh');
-      store.updateProfile({ examGoal: "Java & DSA Placement Exam 2026", level: "Intermediate" });
-      store.setRoute('dashboard');
-    },
-    explanation: "AptiLearn initializes an empty learner profile with zero assumptions, awaiting diagnostic placement data."
-  },
-  {
-    step: 2,
-    title: "2. AI Placement Diagnostic Assessment",
-    summary: "Student takes initial multi-topic placement test to establish baseline knowledge.",
-    actionName: "Launch Diagnostic Test",
-    route: "diagnostic",
-    execute: () => {
-      window.App.startDiagnostic();
-    },
-    explanation: "Multi-topic assessment evaluates prior competence across foundational syntax and algorithms."
-  },
-  {
-    step: 3,
-    title: "3. Strong & Weak Concepts Isolated",
-    summary: "AptiLearn identifies Arrays as strong (90%) and Recursion as weak (34%).",
-    actionName: "View Evaluated Profile (Alex)",
+    title: "1. Studio 3.0 Cockpit & Bayesian EMA Matrix",
+    summary: "High-DPI Cognitive Radar Chart & real-time Bayesian Knowledge Tracing with EMA: 0.65.",
+    actionName: "Load Cockpit Dashboard",
     route: "dashboard",
     execute: () => {
       window.App.switchPersona('alex');
       store.setRoute('dashboard');
     },
-    explanation: "Transparent Bayesian modeling distinguishes strong foundational recall from severe cognitive deficits."
+    explanation: "Tracks multi-dimensional mastery across Foundations, Control Flow, Data Structures, Algorithms, Memory Models, and Dynamic Logic."
   },
   {
-    step: 4,
-    title: "4. Knowledge Graph Updates Automatically",
-    summary: "15-concept prerequisite graph reflects live states: Green for Arrays, Red for Recursion.",
-    actionName: "Inspect Live Graph",
+    step: 2,
+    title: "2. 15-Node Concept DAG (Prerequisite Graph)",
+    summary: "Visual prerequisite graph reflects live states: Green (Mastered), Yellow (Learning), Red (Needs Attention).",
+    actionName: "Inspect Live Concept DAG",
     route: "graph",
     execute: () => {
       store.setRoute('graph');
+      setTimeout(() => {
+        store.selectedConceptForModal = "recursion";
+        store.notify();
+      }, 300);
     },
-    explanation: "Notice the Red node on Recursion (34%) while prerequisite Foundations are Green, highlighting an isolated algorithm block."
+    explanation: "Clicking any node reveals syllabus prerequisites, previous error patterns, and instant practice drills."
   },
   {
-    step: 5,
-    title: "5. Targeted Personalized Learning Session",
-    summary: "AI Adaptive Engine generates a scaffolded session on the student's weakest concept (Recursion).",
-    actionName: "Generate Targeted Question",
+    step: 3,
+    title: "3. Adaptive Arena (Targeted Scaffolding)",
+    summary: "Dynamic difficulty scaling identifies Recursion as Alex's primary bottleneck and serves targeted questions.",
+    actionName: "Load Targeted Recursion Drill",
     route: "practice",
     execute: async () => {
       await practiceState.loadQuestion('recursion');
       store.setRoute('practice');
     },
-    explanation: "The engine bypasses mastered topics to maximize student study efficiency."
+    explanation: "Unlike static test banks, AptiLearn AI dynamically recalibrates question difficulty based on prior answer confidence and latency."
   },
   {
-    step: 6,
-    title: "6. Student Submits Answer & Thought Process",
-    summary: "Student selects Option A and enters reasoning: 'Thought it terminates automatically'.",
-    actionName: "Simulate Mistake with Reasoning",
-    route: "practice",
-    execute: async () => {
-      if (!practiceState.currentQuestion) {
-        await practiceState.loadQuestion('recursion');
-      }
-      practiceState.selectedOption = 0; // "It prints 6"
-      practiceState.studentReasoning = "I thought recursion would automatically terminate when n reached negative numbers.";
-      practiceState.confidence = "High"; // Overconfidence!
-      practiceState.submitAnswer();
-      store.setRoute('practice');
-    },
-    explanation: "High confidence combined with an incorrect answer signals a deep-seated cognitive bug rather than a careless typo."
-  },
-  {
-    step: 7,
-    title: "7. Misconception Detector Identifies Root Cause",
-    summary: "AI pinpoints: 'Missing Base Case in Recursion' causing JVM StackOverflowError.",
-    actionName: "View Counterexample in Notebook",
+    step: 4,
+    title: "4. Misconception Lab (Root Cause & Code Traces)",
+    summary: "Detects WHY the mistake happened (Missing Base Case Guard) with side-by-side counterexample traces.",
+    actionName: "Open Misconception Lab",
     route: "misconceptions",
     execute: () => {
       store.setRoute('misconceptions');
     },
-    explanation: "Instead of simply marking it wrong, AptiLearn isolates why the student chose that option and shows flawed vs correct code."
+    explanation: "Extracts student cognitive bugs and generates side-by-side buggy code vs correct mental model comparisons."
   },
   {
-    step: 8,
-    title: "8. AI Explains Concept Simply (Explain It Again)",
-    summary: "Socrates AI Mentor explains the base case using the Russian Nesting Doll analogy.",
-    actionName: "Ask Socrates to Explain Simply",
-    route: "tutor",
-    execute: async () => {
-      store.setRoute('tutor');
-      await tutorEngine.explainItAgain('analogy', 'Recursion');
-    },
-    explanation: "Adapting explanation style to the student's mastery level bridges conceptual gaps faster."
-  },
-  {
-    step: 9,
-    title: "9. Bayesian Learner Model Dynamically Recalibrates",
-    summary: "Mastery score adjusts dynamically, consecutive mistake count updates, and scaffolding triggers.",
-    actionName: "View Calibrated Learner State",
-    route: "dashboard",
+    step: 5,
+    title: "5. Interactive Java Coding Lab (AST Guard)",
+    summary: "Live sandboxed coding editor with real-time AST base case guard and automated test fixtures.",
+    actionName: "Launch Java Coding Lab",
+    route: "coding",
     execute: () => {
-      store.setRoute('dashboard');
+      store.setRoute('coding');
+      setTimeout(() => {
+        window.App.runCodingLab();
+      }, 300);
     },
-    explanation: "Bayesian ELO updates reflect empirical performance after every single question attempt."
+    explanation: "Validates code logic client-side and safely guards against infinite recursive StackOverflowError before execution."
   },
   {
-    step: 10,
-    title: "10. Revision Center Schedules Spaced Recall (SM-2)",
-    summary: "Scheduler generates an urgent micro-review task due today before memory decay sets in.",
-    actionName: "Inspect Today's Revision Queue",
+    step: 6,
+    title: "6. Real Mock Exam Simulator (15-Min Timer)",
+    summary: "Timed examination simulator with multi-topic question palette, review flags, and negative marking.",
+    actionName: "Launch 15-Min Mock Exam",
+    route: "exam",
+    execute: () => {
+      store.setRoute('exam');
+      setTimeout(() => {
+        window.App.startSimulatedExam(true);
+      }, 200);
+    },
+    explanation: "Full competitive test conditions with instant post-exam analytics and subject percentile ranking."
+  },
+  {
+    step: 7,
+    title: "7. Spaced Repetition (SuperMemo SM-2)",
+    summary: "Mathematical memory scheduler preventing knowledge decay via Leitner interval expansion.",
+    actionName: "Open Spaced SM-2 Review",
     route: "revision",
     execute: () => {
       store.setRoute('revision');
     },
-    explanation: "SuperMemo SM-2 algorithm calculates personalized intervals (1d -> 2d -> 4d) to cement memory."
+    explanation: "Calculates optimal recall intervals (1d, 3d, 7d, 14d) based on student self-rated recall quality."
   },
   {
-    step: 11,
-    title: "11. Student Demonstrates Improvement on Next Attempt",
-    summary: "Student answers the remediation base-case question correctly with guard condition.",
-    actionName: "Simulate Correct Remediation Answer",
-    route: "practice",
+    step: 8,
+    title: "8. Socrates AI Copilot (5 Explanation Modes)",
+    summary: "Socratic AI dialogue featuring 5 'Explain It Again' modes: ELI5, Analogy, Step-by-Step, Visual Stack, and Quiz.",
+    actionName: "Chat with Socrates Copilot",
+    route: "tutor",
     execute: async () => {
-      LearnerModelEngine.recordAttempt({
-        conceptId: "recursion",
-        isCorrect: true,
-        difficulty: "Medium",
-        timeTakenSec: 16,
-        confidence: "High",
-        questionId: "rec_base_fix"
-      });
-      if (store.currentUser.activeMisconceptions?.[0]) {
-        store.currentUser.activeMisconceptions[0].resolved = true;
-      }
-      await practiceState.loadQuestion("recursion");
-      store.setRoute('practice');
-      sound.playLevelUp();
+      store.setRoute('tutor');
+      setTimeout(async () => {
+        await tutorEngine.sendMessage("Why do I get a StackOverflowError in recursion?");
+        store.notify();
+      }, 200);
     },
-    explanation: "Mastery jumps from 32% to 48%, resolving the active misconception record."
+    explanation: "Adapts pedagogical depth to student mastery level and supports Web Speech API audio voice read-aloud."
   },
   {
-    step: 12,
-    title: "12. Dashboard Displays Measurable Improvement",
-    summary: "Measurable mastery growth reflected on Knowledge Graph, Predictor readiness, and Study Plan!",
-    actionName: "View Measurable Progress",
-    route: "dashboard",
+    step: 9,
+    title: "9. Teacher UI & Cohort Analytics",
+    summary: "Faculty dashboard displaying class average mastery, at-risk student flags, and class-wide misconception heatmaps.",
+    actionName: "Switch to Teacher Cohort View",
+    route: "teacher",
     execute: () => {
-      store.setRoute('dashboard');
-      sound.playLevelUp();
+      window.App.switchPersona('teacher');
+      store.setRoute('teacher');
     },
-    explanation: "The feedback loop is complete: from gap identification to diagnosis, Socratic explanation, remediation, and verified retention!"
+    explanation: "Empowers educators with actionable cohort telemetry, identifying systemic misconceptions before exams."
   }
 ];
 
 class GuidedTourController {
   constructor() {
     this.isOpen = false;
-    this.currentStepIdx = 0;
+    this.currentStepIndex = 0;
   }
 
-  open(step = 0) {
+  open(stepIdx = 0) {
     this.isOpen = true;
-    this.currentStepIdx = step;
-    sound.playClick();
-    window.App.render();
+    this.currentStepIndex = stepIdx;
+    sound.playLevelUp();
+    this.executeCurrentStep();
+    store.notify();
   }
 
   close() {
     this.isOpen = false;
-    window.App.render();
+    sound.playClick();
+    store.notify();
   }
 
-  goToStep(index) {
-    if (index >= 0 && index < TOUR_STEPS.length) {
-      this.currentStepIdx = index;
-      const stepObj = TOUR_STEPS[index];
-      if (stepObj.execute) {
-        stepObj.execute();
-      }
+  goToStep(idx) {
+    if (idx >= 0 && idx < TOUR_STEPS.length) {
+      this.currentStepIndex = idx;
       sound.playClick();
-      window.App.render();
+      this.executeCurrentStep();
+      store.notify();
     }
   }
 
   next() {
-    if (this.currentStepIdx < TOUR_STEPS.length - 1) {
-      this.goToStep(this.currentStepIdx + 1);
+    if (this.currentStepIndex < TOUR_STEPS.length - 1) {
+      this.goToStep(this.currentStepIndex + 1);
     } else {
       this.close();
     }
   }
 
   prev() {
-    if (this.currentStepIdx > 0) {
-      this.goToStep(this.currentStepIdx - 1);
+    if (this.currentStepIndex > 0) {
+      this.goToStep(this.currentStepIndex - 1);
+    }
+  }
+
+  executeCurrentStep() {
+    const s = TOUR_STEPS[this.currentStepIndex];
+    if (s && s.execute) {
+      try {
+        s.execute();
+      } catch (e) {
+        console.warn("[Tour Execution]:", e);
+      }
     }
   }
 }
@@ -217,75 +184,75 @@ export function renderGuidedTourModal() {
   const tc = tourController;
   if (!tc.isOpen) return '';
 
-  const current = TOUR_STEPS[tc.currentStepIdx];
+  const s = TOUR_STEPS[tc.currentStepIndex];
+  const isFirst = tc.currentStepIndex === 0;
+  const isLast = tc.currentStepIndex === TOUR_STEPS.length - 1;
 
   return `
-    <!-- Floating Persistent Tour Bar for Judges -->
-    <div id="guided-tour-bar" class="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 max-w-4xl w-[95%] bg-slate-900/95 border border-amber-500/50 rounded-2xl p-4 shadow-2xl backdrop-blur-xl animate-in slide-in-from-bottom-5 duration-300">
-      
-      <div class="flex items-center justify-between border-b border-slate-800 pb-2.5 mb-3">
-        <div class="flex items-center gap-2">
-          <span class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping"></span>
-          <span class="text-xs font-bold text-amber-300 uppercase tracking-wider">AptiLearn AI: Signature 12-Step Hackathon Walkthrough</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <span class="text-xs text-slate-400 font-mono font-bold">Step ${current.step} / 12</span>
-          <button onclick="window.App.closeGuidedTour()" class="w-6 h-6 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center text-xs">✕</button>
-        </div>
-      </div>
-
-      <!-- Step Content -->
-      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div>
-          <h4 class="text-sm font-bold text-white flex items-center gap-2">
-            <span>${current.title}</span>
-          </h4>
-          <p class="text-xs text-slate-300 mt-1 max-w-2xl leading-relaxed">${current.summary}</p>
-          <div class="text-[11px] text-amber-300/90 mt-1 font-mono">
-            💡 Under the hood: ${current.explanation}
+    <div id="guided-tour-bar" class="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:w-[500px] z-50 animate-in slide-in-from-bottom-6 duration-200 shadow-2xl">
+      <div class="glass-card p-5 border border-amber-500/50 bg-[#0b1120]/95 backdrop-blur-xl space-y-3.5 shadow-2xl">
+        
+        <!-- Header -->
+        <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+          <div class="flex items-center gap-2">
+            <span class="text-amber-400 font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 font-mono">
+              <span>⭐</span>
+              <span>9-Step Judge Workflow Tour</span>
+            </span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-950 text-amber-300 border border-amber-700/60 font-bold">
+              Step ${s.step} / ${TOUR_STEPS.length}
+            </span>
           </div>
-        </div>
 
-        <div class="flex items-center gap-2 shrink-0">
           <button 
-            onclick="window.App.tourGoTo(${tc.currentStepIdx})" 
-            class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-lg shadow-amber-500/20 transition-all">
-            ${current.actionName} →
+            onclick="window.App.closeGuidedTour()" 
+            class="text-slate-400 hover:text-white text-xs p-1 rounded hover:bg-slate-800 transition-colors">
+            ✕ Close
           </button>
         </div>
-      </div>
 
-      <!-- Step Stepper Pills -->
-      <div class="flex items-center justify-between mt-3 pt-3 border-t border-slate-800 gap-1 overflow-x-auto pb-1">
-        <div class="flex gap-1">
-          ${TOUR_STEPS.map((s, idx) => `
-            <button 
-              onclick="window.App.tourGoTo(${idx})"
-              class="w-6 h-6 rounded-lg text-[11px] font-bold transition-all ${
-                tc.currentStepIdx === idx 
-                  ? 'bg-amber-500 text-slate-950 font-extrabold shadow-md shadow-amber-500/30 scale-105' 
-                  : 'bg-slate-800 text-slate-400 hover:text-white'
-              }">
-              ${s.step}
-            </button>
-          `).join('')}
+        <!-- Step Title & Summary -->
+        <div>
+          <h4 class="text-sm font-extrabold text-white leading-snug">${s.title}</h4>
+          <p class="text-xs text-amber-200/90 mt-1 leading-relaxed">${s.summary}</p>
         </div>
 
-        <div class="flex items-center gap-2">
+        <!-- Pedagogical Explanations -->
+        <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 text-[11px] text-slate-300 leading-relaxed">
+          <strong class="text-cyan-400 font-semibold font-mono">Evaluation Note:</strong> ${s.explanation}
+        </div>
+
+        <!-- Step Navigation Progress Bar -->
+        <div class="w-full h-1 bg-slate-800 rounded-full overflow-hidden">
+          <div class="h-full bg-gradient-to-r from-amber-400 to-orange-500 transition-all duration-300" style="width: ${((tc.currentStepIndex + 1) / TOUR_STEPS.length) * 100}%"></div>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex items-center justify-between pt-1">
           <button 
             onclick="window.App.tourPrev()" 
-            ${tc.currentStepIdx === 0 ? 'disabled' : ''}
-            class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 text-xs font-semibold disabled:opacity-30">
-            ← Prev
+            ${isFirst ? 'disabled class="opacity-30 cursor-not-allowed text-xs text-slate-400"' : 'class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-white transition-all"'}>
+            ← Previous
           </button>
+
+          <div class="flex items-center gap-1.5">
+            ${TOUR_STEPS.map((step, idx) => `
+              <button 
+                onclick="window.App.tourGoTo(${idx})"
+                class="w-2 h-2 rounded-full transition-all ${idx === tc.currentStepIndex ? 'bg-amber-400 w-4' : 'bg-slate-700 hover:bg-slate-500'}"
+                title="${step.title}">
+              </button>
+            `).join('')}
+          </div>
+
           <button 
             onclick="window.App.tourNext()" 
-            class="px-3 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold shadow-sm">
-            ${tc.currentStepIdx === TOUR_STEPS.length - 1 ? 'Finish Tour ✓' : 'Next Step →'}
+            class="px-4 py-1.5 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-extrabold text-xs shadow-md transition-all">
+            ${isLast ? 'Complete Tour ✓' : 'Next Step →'}
           </button>
         </div>
-      </div>
 
+      </div>
     </div>
   `;
 }
