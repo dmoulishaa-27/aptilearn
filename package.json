@@ -1,0 +1,25 @@
+{
+  "name": "learniq",
+  "version": "1.0.0",
+  "description": "LearnIQ – Adaptive AI Exam-Prep Tutor with a Learner Model",
+  "main": "server.py",
+  "type": "module",
+  "scripts": {
+    "start": "python3 server.py",
+    "serve": "python3 server.py --port 5173",
+    "dev": "python3 server.py --port 5173"
+  },
+  "keywords": [
+    "adaptive-learning",
+    "learner-model",
+    "exam-prep",
+    "ai-tutor",
+    "spaced-repetition",
+    "misconception-detection",
+    "knowledge-graph",
+    "java",
+    "dsa"
+  ],
+  "author": "LearnIQ Team",
+  "license": "MIT"
+}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LearnIQ – Adaptive AI Exam-Prep Tutor with a Learner Model</title>
+  <meta name="description" content="LearnIQ is an intelligent exam-preparation platform that understands how each student learns through continuous Bayesian concept tracking, misconception detection, and spaced repetition." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2338bdf8'><path d='M12 2v8l4-4-4-4zM22 22H2l10-10 10 10z'/></svg>" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            slate: {
+              950: '#070d19',
+              900: '#0f172a',
+              850: '#131e33',
+              800: '#1e293b',
+              700: '#334155'
+            },
+            cyan: {
+              400: '#38bdf8',
+              500: '#0ea5e9',
+              600: '#0284c7'
+            },
+            indigo: {
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-cyan-500/30 selection:text-cyan-200">
+
+  <!-- Top Navbar Shell -->
+  <div id="navbar-container"></div>
+
+  <!-- Main View Container -->
+  <main id="main-content" class="grow relative"></main>
+
+  <!-- Modals & Drawers Container -->
+  <div id="auth-modal-container"></div>
+  <div id="guided-tour-container"></div>
+
+  <!-- Main ES Module Script -->
+  <script type="module" src="js/app.js"></script>
+
+</body>
+</html>
