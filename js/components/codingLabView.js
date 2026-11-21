@@ -26,6 +26,12 @@ class CodingLabController {
     this.userCode = code;
   }
 
+  clearResults() {
+    this.testResults = null;
+    sound.playClick();
+    window.App.render();
+  }
+
   revealHint() {
     this.hintRevealed = true;
     sound.playClick();
@@ -182,12 +188,19 @@ export function renderCodingLabView() {
 
           <!-- Run Code Action & Results -->
           <div class="space-y-3 pt-2">
-            <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
               <button 
                 onclick="window.App.runCodingLab()"
                 class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold text-xs shadow-lg shadow-emerald-500/20 hover:scale-105 active:scale-95 transition-all flex items-center gap-2">
                 <span>▶ Run & Verify Test Cases</span>
               </button>
+              ${cc.testResults ? `
+                <button 
+                  onclick="window.App.clearCodingLabResults()"
+                  class="px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition-all">
+                  ✕ Clear Results
+                </button>
+              ` : ''}
             </div>
 
             <!-- Execution Feedback Banner -->

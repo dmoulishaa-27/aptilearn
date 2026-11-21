@@ -150,4 +150,26 @@ export class MisconceptionEngine {
       store.saveState();
     }
   }
+
+  /**
+   * Resolves all active misconceptions in bulk
+   */
+  static resolveAll() {
+    const user = store.currentUser;
+    if (!user || !user.activeMisconceptions) return;
+
+    let count = 0;
+    user.activeMisconceptions.forEach(m => {
+      if (!m.resolved) {
+        m.resolved = true;
+        m.resolvedAt = new Date().toISOString();
+        count++;
+      }
+    });
+
+    if (count > 0) {
+      store.addXp(count * 100, `Remediated all misconceptions`);
+      store.saveState();
+    }
+  }
 }

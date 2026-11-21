@@ -337,6 +337,17 @@ class AptiLearnApp {
     store.notify();
   }
 
+  clearAllMisconceptions() {
+    MisconceptionEngine.resolveAll();
+    sound.playLevelUp();
+    store.addNotification({
+      title: "All Errors Cleared",
+      desc: "All active misconceptions and cognitive bugs have been remediated.",
+      type: "misconception"
+    });
+    store.notify();
+  }
+
   // Spaced Repetition (SM-2)
   startRevisionCard(id) {
     const card = store.currentUser?.spacedRepetitionQueue?.find(c => c.id === id);
@@ -480,6 +491,10 @@ class AptiLearnApp {
 
   runCodingLab() {
     codingController.runCode();
+  }
+
+  clearCodingLabResults() {
+    codingController.clearResults();
   }
 
   // Study Planner

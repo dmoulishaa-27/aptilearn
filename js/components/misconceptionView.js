@@ -25,7 +25,16 @@ export function renderMisconceptionView() {
           </p>
         </div>
 
-        <div class="flex items-center gap-4">
+        <div class="flex flex-wrap items-center gap-3">
+          ${activeList.length > 0 ? `
+            <button 
+              onclick="window.App.clearAllMisconceptions()" 
+              class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-bold text-xs shadow-lg shadow-emerald-500/25 active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer"
+              title="Mark all detected misconceptions as resolved and clear active errors">
+              <span>✓</span>
+              <span>Clear All Active Errors</span>
+            </button>
+          ` : ''}
           <div class="p-3 rounded-2xl bg-rose-950/50 border border-rose-800/60 text-center min-w-[90px]">
             <div class="text-2xl font-extrabold text-rose-400 font-mono">${activeList.length}</div>
             <div class="text-[10px] text-slate-400 uppercase font-semibold">Active Bugs</div>

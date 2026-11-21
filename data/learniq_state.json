@@ -7,8 +7,8 @@
   "examGoal": "Java & DSA Placement Exam 2026",
   "level": "Intermediate",
   "streakDays": 6,
-  "lastActiveDate": "2026-11-21T11:51:26.889Z",
-  "totalXp": 1680,
+  "lastActiveDate": "2026-11-21T11:57:45.804Z",
+  "totalXp": 1920,
   "levelName": "Algorithm Apprentice",
   "diagnosticCompleted": true,
   "weeklyGoalQuestions": 35,
@@ -165,7 +165,7 @@
       "title": "Missing Base Case in Recursion",
       "severity": "Critical",
       "detectedAt": "2026-11-20T10:14:00Z",
-      "resolved": false,
+      "resolved": true,
       "studentReasoning": "I thought the recursion would automatically terminate when n became negative because there's no math left to compute.",
       "explanation": "Recursion has no 'automatic' awareness of mathematical intent. Unless you explicitly code an exit condition (e.g., `if (n <= 1) return 1;`), the Java Virtual Machine keeps pushing new activation frames onto the call stack until memory is exhausted (StackOverflowError).",
       "counterExample": {
@@ -173,7 +173,8 @@
         "correctCode": "int sum(int n) {\n  if (n <= 0) return 0; // Guard condition: BASE CASE\n  return n + sum(n - 1);\n}",
         "trace": "sum(2) -> sum(1) -> sum(0) stops! Returns 0."
       },
-      "remediationQuizId": "rec_base_fix"
+      "remediationQuizId": "rec_base_fix",
+      "resolvedAt": "2026-11-21T12:09:28.589Z"
     },
     {
       "id": "misc_arr_01",
@@ -182,7 +183,7 @@
       "title": "Array Index Out of Bounds (Length vs Last Index)",
       "severity": "Moderate",
       "detectedAt": "2026-11-19T16:45:00Z",
-      "resolved": false,
+      "resolved": true,
       "studentReasoning": "If an array has size 5, array[5] should be the 5th element.",
       "explanation": "Java arrays are 0-indexed. An array of size N stores items from index `0` up to index `N - 1`. Attempting to read `array[array.length]` always throws an `ArrayIndexOutOfBoundsException`.",
       "counterExample": {
@@ -190,7 +191,8 @@
         "correctCode": "int[] arr = new int[5];\nSystem.out.println(arr[arr.length - 1]); // Last element!",
         "trace": "Length = 5. Indices: [0, 1, 2, 3, 4]. index 5 does not exist."
       },
-      "remediationQuizId": "arr_01"
+      "remediationQuizId": "arr_01",
+      "resolvedAt": "2026-11-21T12:09:37.035Z"
     }
   ],
   "spacedRepetitionQueue": [
